@@ -466,7 +466,7 @@ updatable_priority_queue<_Value, _Tp, _Container, _Compare, _Map>::push(value_ty
     m.insert({move(__v.first),--c.end()-c.begin()});
     __push_heap(c.begin(), c.end(), comp);
 }
-/*
+
 template <class _Tp, class _Container, class _Compare>
 template <class... _Args>
 inline
@@ -475,8 +475,11 @@ priority_queue<_Tp, _Container, _Compare>::emplace(_Args&&... __args)
 {
     c.emplace_back(forward<_Args>(__args)...);
     push_heap(c.begin(), c.end(), comp);
+    for (iter_type it=c.begin(); it!=c.end(); it++){
+        m.insert({it->first, it-c.begin()});
+    }
 }
-*/
+
 #endif  // _LIBCPP_CXX03_LANG
 
 template <class _Value, class _Tp, class _Container, class _Compare, class _Map>
